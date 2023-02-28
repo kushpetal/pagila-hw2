@@ -9,3 +9,14 @@
  * HINT:
  * This can be solved using either a LEFT JOIN or the NOT IN operator.
  */
+
+WITH aux AS (
+SELECT CONCAT(actor.first_name, ' ', actor.last_name) AS name FROM actor
+JOIN customer ON customer.first_name = actor.first_name AND customer.last_name = actor.last_name
+)
+SELECT actor.last_name, actor.first_name FROM actor
+WHERE CONCAT(actor.first_name, ' ', actor.last_name) NOT IN (SELECT name from aux)
+ORDER BY actor.last_name, actor.first_name;
+
+
+
